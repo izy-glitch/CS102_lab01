@@ -4,54 +4,31 @@ public class IntBag {
 
     public IntBag() {
         intBag = new int [4];
-    }
-
-    public void addValue( int value ){
-        for ( int i = 0; i < intBag.length; i++ ){
-            if ( i == intBag.length - 1 ){
-                int length = intBag.length;
-                int temp[] = new int [ length * 2 ];
-                System.arraycopy( intBag,0, temp, 0, length);
-            }
-        }
-
-        this.intBag[0] = value;
-
-        if ( intBag[ intBag.length - 1 ] != -1 ){
-            this.intBag[ intBag.length - 1 ] = -1;
-        }
+        intBag[0] = -1;
     }
 
     public void addEndValue( int value ){
-        for ( int i = 0; i < intBag.length; i++ ){
-            if ( i == intBag.length - 1 ){
-                int length = intBag.length;
-                int temp[] = new int [ length * 2 ];
-                System.arraycopy( intBag,0, temp, 0, length);
-            }
-        }
-
-        this.intBag[ intBag.length - 2 ] = value;
-
-        if ( intBag[ intBag.length - 1 ] != -1 ){
-            this.intBag[ intBag.length - 1 ] = -1;
-        }
+        addIndexValue( value, numberOfValues() );
     }
 
     public void addIndexValue( int value, int index ){
-        for ( int i = 0; i < intBag.length; i++ ){
-            if ( i == intBag.length - 1 ){
-                int length = intBag.length;
-                int temp[] = new int [ length * 2 ];
-                System.arraycopy( intBag,0, temp, 0, length);
-            }
-        }
+        int numberOfValues = numberOfValues();
 
+        if ( numberOfValues == intBag.length - 1 ){
+            int length = intBag.length;
+            int temp[] = new int [ length ];
+            System.arraycopy( intBag,0, temp, 0, length);
+            intBag = new int[ length * 2 ];
+            System.arraycopy( temp,0, intBag, 0, length);
+        }
+        for (int i = numberOfValues - 1; i > index - 1; i--) {
+            intBag[ i + 1 ] = intBag[ i ];
+        }
         if ( index < intBag.length ) {
             this.intBag[ index ] = value;
         }
-        if ( intBag[ intBag.length - 1 ] != -1 ){
-            this.intBag[ intBag.length - 1 ] = -1;
+        if ( intBag[ numberOfValues ] != -1 ){
+            this.intBag[ numberOfValues ] = -1;
         }
     }
 
@@ -77,16 +54,23 @@ public class IntBag {
     }
 
     public int numberOfValues(){
-        return intBag.length;
+        int c = 0 ;
+        for ( int i = 0; i < intBag.length; i++ ){
+            if ( intBag[i] >= 0 ){
+                c++;
+            }
+        }
+        return c;
     }
 
     public int getTheValue( int index ){
-        return intBag[ index ];
+        int i = intBag[index];
+        return i;
     }
 
     public String toString() {
         String arrayString = "";
-        for (int i=0; i < intBag.length; i++) {
+        for (int i=0; i < numberOfValues(); i++) {
             arrayString = arrayString + intBag[i] + "\n";
         }
         return arrayString;
