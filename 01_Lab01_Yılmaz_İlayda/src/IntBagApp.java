@@ -17,54 +17,51 @@ public class IntBagApp {
 
     public static void main( String args[]){
 
+        boolean noQuit = true;
+        Scanner input = new Scanner( System.in );
         IntBag collection = new IntBag();
         int choice;
         int value;
         int index;
 
         do{
-            Scanner input = new Scanner( System.in );
             displayMenu();
             choice = input.nextInt();
 
             if ( choice == 1 ){
-                System.out.println( collection );
+                collection = new IntBag();
             }
             else if ( choice == 2 ){
                 do{
                     System.out.println( "Enter the value: " );
-                    Scanner input2 = new Scanner( System.in );
-                    value = input2.nextInt();
-                    collection.addValue( value );
+                    value = input.nextInt();
+                    collection.addEndValue( value );
                 } while( value != 0 );
             }
             else if ( choice == 3 ){
-                System.out.println( collection );
+                System.out.println( collection.toString() );
             }
             else if ( choice == 4 ){
-                Scanner input3 = new Scanner( System.in );
                 System.out.println( "Enter the value: " );
-                value = input3.nextInt();
-                Scanner input4 = new Scanner( System.in );
+                value = input.nextInt();
                 System.out.println( "Enter the index: " );
-                index = input4.nextInt();
+                index = input.nextInt();
                 collection.addIndexValue( value, index);
             }
             else if ( choice == 5 ){
                 System.out.println( "Enter the index: " );
-                Scanner input5 = new Scanner( System.in );
-                index = input5.nextInt();
+                index = input.nextInt();
                 collection.removeIndexValue( index );
             }
             else if ( choice == 6 ){
                 System.out.println( "Enter the value: " );
-                Scanner input6 = new Scanner( System.in );
-                value = input6.nextInt();
+                value = input.nextInt();
                 collection.removeAll( value );
             }
             else if ( choice == 7 ) {
                 System.out.println( "Goodbye!" );
+                noQuit = false;
             }
-        }while ( choice == 7 );
+        }while ( noQuit );
     }
 }
